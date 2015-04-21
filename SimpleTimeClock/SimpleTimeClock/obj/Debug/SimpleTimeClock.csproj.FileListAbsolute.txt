@@ -1,0 +1,17 @@
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\bin\Debug\SimpleTimeClock.exe.config
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\bin\Debug\SimpleTimeClock.exe
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\bin\Debug\SimpleTimeClock.pdb
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.csprojResolveAssemblyReference.cache
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\MainWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\MainWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\App.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock_MarkupCompile.cache
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.g.resources
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.Properties.Resources.resources
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.csproj.GenerateResource.Cache
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.exe
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.pdb
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ConfigWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ConfigWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.g.cs
