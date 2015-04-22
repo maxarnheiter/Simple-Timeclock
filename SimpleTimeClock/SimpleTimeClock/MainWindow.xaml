@@ -1,4 +1,4 @@
-﻿<Window x:Class="SimpleTimeClock.MainWindow"
+﻿<Window x:Name="Main_Window" x:Class="SimpleTimeClock.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="410" Width="640">

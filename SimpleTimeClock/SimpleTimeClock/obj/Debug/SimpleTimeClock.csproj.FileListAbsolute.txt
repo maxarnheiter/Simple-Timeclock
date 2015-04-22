@@ -15,3 +15,7 @@ C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.baml
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ConfigWindow.g.cs
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\NewCompanyWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PasswordWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\NewCompanyWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PasswordWindow.g.cs

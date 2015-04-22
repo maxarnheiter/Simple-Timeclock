@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace SimpleTimeClock
 {
-    class Employee
+    public class Employee
     {
         public string fname = "";
         public string lname = "";
+
+        public string password = "";
 
         public string fullname
         {
             get { return fname + " " + lname; }
         }
+
+        public Employee()
+        { }
 
         public Employee(string f_name, string l_name)
         {

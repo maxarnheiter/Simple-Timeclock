@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\App.xaml
-3-180092145
+5-982517765
 
-8-1015998540
+12992844412
 12-1401562060
-ConfigWindow.xaml;MainWindow.xaml;SetupWindow.xaml;
+ConfigWindow.xaml;MainWindow.xaml;NewCompanyWindow.xaml;PasswordWindow.xaml;SetupWindow.xaml;
 
 False
 
