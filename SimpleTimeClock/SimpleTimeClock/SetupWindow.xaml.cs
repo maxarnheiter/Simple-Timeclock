@@ -20,43 +20,51 @@ namespace SimpleTimeClock
     /// </summary>
     public partial class SetupWindow : Window
     {
+        public Company company;
 
         NewCompanyWindow newCompanyWindow;
 
         public SetupWindow()
         {
             InitializeComponent();
-            Dataset.openWindows.Add(this);
         }
 
         private void load_button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Dataset.openWindows.Count);
-
             OpenFileDialog fileDialog = new OpenFileDialog();
             
-
             if (fileDialog.ShowDialog() == true)
             {
-                Console.WriteLine(fileDialog.FileName);
-                //TODO
+                company = Company.Deserialize(fileDialog.FileName);
+
+                if (company == null)
+                    MessageBox.Show("Failed to open company file.");
+                else
+                    OpenMainWindow();
+                
             }
         }
 
         private void create_new_button_Click(object sender, RoutedEventArgs e)
         {
-            //Create a new company window and show it to the user
-            if (newCompanyWindow == null)
+            newCompanyWindow = new NewCompanyWindow();
+
+            if (newCompanyWindow.ShowDialog() == false)
             {
-                newCompanyWindow = new NewCompanyWindow();
+                if (newCompanyWindow.newCompany != null)
+                    OpenMainWindow();
 
-                //TODO listen to the window closing so we can set it to null so it gets GC'ed
-
-                newCompanyWindow.Show();
+                newCompanyWindow = null;
             }
-            //If one already exists, show that to the user
-            else
-                newCompanyWindow.Activate();
+        }
+
+        private void OpenMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow(company);
+            mainWindow.Show();
+
+            company = null;
+            this.Close();
         }
     }
 }

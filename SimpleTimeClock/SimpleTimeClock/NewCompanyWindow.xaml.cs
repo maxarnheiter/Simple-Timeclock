@@ -21,6 +21,8 @@ namespace SimpleTimeClock
     public partial class NewCompanyWindow : Window
     {
 
+        public Company newCompany;
+
         string newCompanyName = "";
         string adminPassword = "";
         string adminPasswordRepeat = "";
@@ -28,7 +30,6 @@ namespace SimpleTimeClock
         public NewCompanyWindow()
         {
             InitializeComponent();
-            Dataset.openWindows.Add(this);
         }
 
         private void create_button_Click(object sender, RoutedEventArgs e)
@@ -46,21 +47,18 @@ namespace SimpleTimeClock
             }
 
             //Create the new company object
-            Company company = new Company(newCompanyName, adminPassword);
-
+            newCompany = new Company(newCompanyName, adminPassword);
 
             //Create and configure the save file dialog
             SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.FileName = company.name + ".xml";
+            saveDialog.FileName = newCompany.name + ".xml";
             saveDialog.Filter = "XML Files (*.xml)|*.xml";
 
             //Save the file when we get a path
             if(saveDialog.ShowDialog() == true)
             {
-                Company.Serialize(company, saveDialog.FileName);
+                Company.Serialize(newCompany, saveDialog.FileName);
             }
-
-            Dataset.company = company;
 
             //Show success, and close
             MessageBox.Show("Company file created successfully.");
@@ -122,11 +120,6 @@ namespace SimpleTimeClock
         private void admin_password_repeat_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             adminPasswordRepeat = admin_password_repeat_textbox.Text;
-        }
-
-        private void New_Company_Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Dataset.openWindows.Remove(this);
         }
 
 

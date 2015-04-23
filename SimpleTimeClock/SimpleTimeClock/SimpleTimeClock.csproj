@@ -54,7 +54,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Company.cs" />
-    <Compile Include="Dataset.cs" />
     <Compile Include="NewCompanyWindow.xaml.cs">
       <DependentUpon>NewCompanyWindow.xaml</DependentUpon>
     </Compile>

@@ -20,11 +20,31 @@ namespace SimpleTimeClock
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        Company company;
+
+        ConfigWindow configWindow;
+
+        public MainWindow(Company company)
         {
             InitializeComponent();
+            this.company = company;
+            InitializeUI();
+        }
 
-    
+        private void InitializeUI()
+        {
+            company_name_label.Content = company.name;
+        }
+
+        private void settings_button_Click(object sender, RoutedEventArgs e)
+        {
+            configWindow = new ConfigWindow(company);
+
+            if (configWindow.ShowDialog() == false)
+            {
+                //todo
+            }
+
         }
 
       

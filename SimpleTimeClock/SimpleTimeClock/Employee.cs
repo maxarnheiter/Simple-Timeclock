@@ -27,6 +27,13 @@ namespace SimpleTimeClock
             this.lname = l_name;
         }
 
+        public Employee(string f_name, string l_name, string pword)
+        {
+            this.fname = f_name;
+            this.lname = l_name;
+            this.password = pword;
+        }
+
 
     }
 }
