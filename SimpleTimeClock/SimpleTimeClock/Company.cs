@@ -17,7 +17,7 @@ namespace SimpleTimeClock
         public string adminPassword;
         public string exportPassword;
 
-        public string exportEMail;
+        public string exportEmail;
 
         public event EmployeesChangedEventHandler EmployeesChanged;
 
@@ -58,7 +58,7 @@ namespace SimpleTimeClock
 
         public bool AddEmployee(Employee employee)
         {
-            if(!employees.Exists(e => e.fname == employee.fname && e.lname == employee.lname))
+            if(employees.Exists(e => e.fname == employee.fname && e.lname == employee.lname))
                 return false;
             
             employees.Add(employee);
