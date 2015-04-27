@@ -35,7 +35,7 @@ namespace SimpleTimeClock
             
             if (fileDialog.ShowDialog() == true)
             {
-                company = Company.Deserialize(fileDialog.FileName);
+                company = AppManager.OpenCompany(fileDialog.FileName);
 
                 if (company == null)
                     MessageBox.Show("Failed to open company file.");

@@ -10,7 +10,28 @@ namespace SimpleTimeClock
 {
     public class Company
     {
-        public string name = "";
+        private string _name;
+        public string name
+        {
+            get { return _name; }
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnNameChanged(_name);
+                }
+            }
+        }
+
+        public event EventHandler NameChanged;
+
+        protected void OnNameChanged(EventArgs e)
+        {
+            EventHandler handler = NameChanged;
+            if (handler != null)
+                handler(this, e);
+        }
 
         public List<Employee> employees;
 
@@ -19,7 +40,6 @@ namespace SimpleTimeClock
 
         public string exportEmail;
 
-        public event EmployeesChangedEventHandler EmployeesChanged;
 
         public Company()
         { }
@@ -29,32 +49,6 @@ namespace SimpleTimeClock
             adminPassword = adminPass;
             name = newName;
         }
-
-        public static void Serialize(Company company, string path)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(Company));
-
-            StreamWriter writer = new StreamWriter(path);
-
-            serializer.Serialize(writer, company);
-
-            writer.Close();
-        }
-
-        public static Company Deserialize(string path)
-        {
-            Company company;
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Company));
-
-            FileStream fileStream = new FileStream(path, FileMode.Open);
-
-            company = (Company)serializer.Deserialize(fileStream);
-
-            return company;
-        }
-
-        public delegate void EmployeesChangedEventHandler();
 
         public bool AddEmployee(Employee employee)
         {

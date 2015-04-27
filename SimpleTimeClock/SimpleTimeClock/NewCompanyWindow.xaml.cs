@@ -57,7 +57,7 @@ namespace SimpleTimeClock
             //Save the file when we get a path
             if(saveDialog.ShowDialog() == true)
             {
-                Company.Serialize(newCompany, saveDialog.FileName);
+                AppManager.SaveCompanyAs(newCompany, saveDialog.FileName);
             }
 
             //Show success, and close

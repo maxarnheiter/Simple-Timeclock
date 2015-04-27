@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppManager.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="NewCompanyWindow.xaml.cs">
       <DependentUpon>NewCompanyWindow.xaml</DependentUpon>
