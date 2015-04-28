@@ -1,48 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel;
 
 namespace SimpleTimeClock
 {
-    public class Company
+    public class Company : INotifyPropertyChanged
     {
-        private string _name;
-        public string name
-        {
-            get { return _name; }
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnNameChanged(_name);
-                }
-            }
-        }
 
-        public event EventHandler NameChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnNameChanged(EventArgs e)
+        protected void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            EventHandler handler = NameChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
                 handler(this, e);
         }
 
-        public List<Employee> employees;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
 
-        public string adminPassword;
-        public string exportPassword;
+        private string _name;
+        public string name
+        {
+            get { return _name; }
+            set 
+            {
+                if (value != _name) 
+                {
+                    _name = value;
+                    OnPropertyChanged("name");
+                }
+            }
+        }
 
-        public string exportEmail;
+        private string _adminPassword;
+        public string adminPassword
+        {
+            get { return _adminPassword; }
+            set
+            {
+                if (value != _adminPassword)
+                {
+                    _adminPassword = value;
+                    OnPropertyChanged("adminPassword");
+                }
+            }
+        }
 
+        private string _exportPassword;
+        public string exportPassword
+        {
+            get { return _exportPassword; }
+            set
+            {
+                if (value != _exportPassword)
+                {
+                    _exportPassword = value;
+                    OnPropertyChanged("exportPassword");
+                }
+            }
+        }
+
+        private string _exportEmail;
+        public string exportEmail
+        {
+            get { return _exportEmail; }
+            set
+            {
+                if (value != _exportEmail)
+                {
+                    _exportEmail = value;
+                    OnPropertyChanged("exportEmail");
+                }
+            }
+        }
+
+        private readonly ObservableCollection<Employee> _employees;
+
+        public ObservableCollection<Employee> employees
+        {
+            get { return _employees; }
+        }
 
         public Company()
-        { }
+        {
+            _employees = new ObservableCollection<Employee>();
+        }
 
         public Company(string newName, string adminPass)
         {
@@ -50,25 +101,24 @@ namespace SimpleTimeClock
             name = newName;
         }
 
-        public bool AddEmployee(Employee employee)
+        public Employee AddEmployee(string emp_fname, string emp_lname, string emp_pword)
         {
-            if(employees.Exists(e => e.fname == employee.fname && e.lname == employee.lname))
-                return false;
+            if (employees.Any(e => e.fname == emp_fname && e.lname == emp_lname))
+                return null;
+
+            Employee employee = new Employee(emp_fname, emp_lname, emp_pword);
             
-            employees.Add(employee);
+            _employees.Add(employee);
 
-            EmployeesChanged();
-
-            return true;
+            return employee;
         }
 
         public bool RemoveEmployee(Employee employee)
         {
-            if (employees.Exists(e => e.fname == employee.fname && e.lname == employee.lname))
+            if (employees.Any(e => e.fname == employee.fname && e.lname == employee.lname))
             {
-                employees.Remove(employee);
-
-                EmployeesChanged();
+                _employees.Remove(employee);
+                return true;
             }
 
             return false;

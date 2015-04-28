@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace SimpleTimeClock
 {
@@ -27,9 +30,9 @@ namespace SimpleTimeClock
         {
             InitializeComponent();
             this.company = company;
-            InitializeUI();
 
-            company.EmployeesChanged += new Company.EmployeesChangedEventHandler(OnEmployeesChanged);
+            ListenToEvents();
+            InitializeUI();
         }
 
         private void InitializeUI()
@@ -43,6 +46,29 @@ namespace SimpleTimeClock
             UpdateListBox();
         }
 
+        private void ListenToEvents()
+        {
+            company.PropertyChanged += OnCompanyPropertyChanged;
+            company.employees.CollectionChanged += OnEmployeesCollectionChanged;
+
+            foreach (var employee in company.employees)
+                employee.PropertyChanged += OnEmployeePropertyChanged;
+        }
+
+        private void OnCompanyPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //Do nothing, its handled by the UI..
+        }
+
+        private void OnEmployeesCollectionChanged(object sender,  NotifyCollectionChangedEventArgs e)
+        {
+            UpdateListBox();
+        }
+
+        private void OnEmployeePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateListBox();
+        }
 
         private void UpdateListBox()
         {
@@ -164,11 +190,6 @@ namespace SimpleTimeClock
             }
         }
 
-        private void OnEmployeesChanged()
-        {
-            UpdateListBox();
-        }
-
     //Employee Password and Checkbox
 
         private void show_employee_checkbox_Checked(object sender, RoutedEventArgs e)
@@ -233,9 +254,11 @@ namespace SimpleTimeClock
 
         private void add_employee_button_Click(object sender, RoutedEventArgs e)
         {
-            company.AddEmployee(new Employee("New", "Employee", "password"));
+            Employee newEmployee = company.AddEmployee("New", "Employee", "password");
 
-            employees_listbox.SelectedItem = company.employees.Find(emp => emp.fullname == "New Employee");
+            newEmployee.PropertyChanged += OnEmployeePropertyChanged;
+
+            employees_listbox.SelectedItem = newEmployee;
         }
 
     //Remove Employee Button
