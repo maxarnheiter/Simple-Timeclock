@@ -65,6 +65,20 @@ namespace SimpleTimeClock
             }
         }
 
+        private ClockStatus _status;
+        public ClockStatus status
+        {
+            get { return _status; }
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    OnPropertyChanged("status");
+                }
+            }
+        }
+
         public string fullname
         {
             get { return _fname + " " + _lname; }
@@ -84,6 +98,16 @@ namespace SimpleTimeClock
             _fname = f_name;
             _lname = l_name;
             _password = pword;
+        }
+
+        public void ClockIn()
+        {
+            status = ClockStatus.In;
+        }
+
+        public void ClockOut()
+        {
+            status = ClockStatus.Out;
         }
 
 

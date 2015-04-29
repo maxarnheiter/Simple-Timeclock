@@ -52,7 +52,10 @@ namespace SimpleTimeClock
             if (newCompanyWindow.ShowDialog() == false)
             {
                 if (newCompanyWindow.newCompany != null)
+                {
+                    company = newCompanyWindow.newCompany;
                     OpenMainWindow();
+                }
 
                 newCompanyWindow = null;
             }

@@ -54,7 +54,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppManager.cs" />
+    <Compile Include="ClockAction.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="NewCompanyWindow.xaml.cs">
       <DependentUpon>NewCompanyWindow.xaml</DependentUpon>
     </Compile>

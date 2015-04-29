@@ -13,10 +13,9 @@ namespace SimpleTimeClock
     {
 
         static bool isFileOpen;
-
         static FileStream fileStream;
-
         static string filePath;
+        static Company company;
 
         public static Company OpenCompany(string path)
         {
@@ -27,7 +26,6 @@ namespace SimpleTimeClock
             }
             else
             {
-                Company company;
 
                 XmlSerializer serializer = new XmlSerializer(typeof(Company));
 
@@ -36,6 +34,8 @@ namespace SimpleTimeClock
                 company = (Company)serializer.Deserialize(fileStream);
 
                 filePath = path;
+
+                company.CompanyChanged += OnCompanyChange;
 
                 return company;
             }
@@ -52,20 +52,28 @@ namespace SimpleTimeClock
             writer.Close();
         }
 
-        public static void SaveCompany(Company company)
+        public static void SaveCompany()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Company));
 
-            StreamWriter writer = new StreamWriter(filePath);
+           // StreamWriter writer = new StreamWriter(filePath);
 
-            serializer.Serialize(writer, company);
+            fileStream.SetLength(0);
+            fileStream.Flush();
 
-            writer.Close();
+            serializer.Serialize(fileStream, company);
+
+            //writer.Close();
         }
 
         public static void CloseCompany()
         {
             //TODO
+        }
+
+        static void OnCompanyChange()
+        {
+            SaveCompany();
         }
 
     }

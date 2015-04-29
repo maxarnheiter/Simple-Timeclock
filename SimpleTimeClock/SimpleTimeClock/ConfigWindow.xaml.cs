@@ -150,13 +150,11 @@ namespace SimpleTimeClock
         private void export_password_passwordbox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             company.exportPassword = export_password_passwordbox.Password;
-            Console.WriteLine(company.exportPassword);
         }
 
         private void export_password_textbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             company.exportPassword = export_password_textbox.Text;
-            Console.WriteLine(company.exportPassword);
         }
 
     //Export E-Mail
@@ -256,9 +254,12 @@ namespace SimpleTimeClock
         {
             Employee newEmployee = company.AddEmployee("New", "Employee", "password");
 
-            newEmployee.PropertyChanged += OnEmployeePropertyChanged;
+            if (newEmployee != null)
+            {
+                newEmployee.PropertyChanged += OnEmployeePropertyChanged;
 
-            employees_listbox.SelectedItem = newEmployee;
+                employees_listbox.SelectedItem = newEmployee;
+            }
         }
 
     //Remove Employee Button

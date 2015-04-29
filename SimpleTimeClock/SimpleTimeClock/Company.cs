@@ -7,11 +7,24 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace SimpleTimeClock
 {
     public class Company : INotifyPropertyChanged
     {
+
+        //All events cascade up to this
+        public delegate void CompanyChangedEventHandler();
+        public event CompanyChangedEventHandler CompanyChanged;
+
+        protected void OnCompanyChanged(object source, EventArgs e)
+        {
+            CompanyChangedEventHandler handler = CompanyChanged;
+            
+            if (handler != null)
+                handler();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -90,15 +103,37 @@ namespace SimpleTimeClock
             get { return _employees; }
         }
 
+        public List<ClockAction> clockLog;
+
         public Company()
         {
             _employees = new ObservableCollection<Employee>();
+
+            PropertyChanged += OnCompanyChanged;
+            employees.CollectionChanged += OnCompanyChanged;
+
+            foreach (Employee e in employees)
+            {
+                e.PropertyChanged += OnCompanyChanged;
+                e.PropertyChanged += OnEmployeeClockAction;
+            }
         }
 
         public Company(string newName, string adminPass)
         {
             adminPassword = adminPass;
             name = newName;
+
+            _employees = new ObservableCollection<Employee>();
+
+            PropertyChanged += OnCompanyChanged;
+            employees.CollectionChanged += OnCompanyChanged;
+
+            foreach (Employee e in employees)
+            {
+                e.PropertyChanged += OnCompanyChanged;
+                e.PropertyChanged += OnEmployeeClockAction;
+            }
         }
 
         public Employee AddEmployee(string emp_fname, string emp_lname, string emp_pword)
@@ -107,6 +142,9 @@ namespace SimpleTimeClock
                 return null;
 
             Employee employee = new Employee(emp_fname, emp_lname, emp_pword);
+
+            employee.PropertyChanged += OnCompanyChanged;
+            employee.PropertyChanged += OnEmployeeClockAction;
             
             _employees.Add(employee);
 
@@ -117,11 +155,22 @@ namespace SimpleTimeClock
         {
             if (employees.Any(e => e.fname == employee.fname && e.lname == employee.lname))
             {
+                employee.PropertyChanged -= OnCompanyChanged;
+                employee.PropertyChanged -= OnEmployeeClockAction;
+
                 _employees.Remove(employee);
                 return true;
             }
 
             return false;
+        }
+
+        private void OnEmployeeClockAction(object source, EventArgs e)
+        {
+            PropertyChangedEventArgs args = e as PropertyChangedEventArgs;
+
+            if (args.PropertyName == "status")
+                Console.WriteLine("status change detected");
         }
 
     }
