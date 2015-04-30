@@ -32,38 +32,35 @@ namespace SimpleTimeClock
                 fileStream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
 
                 company = (Company)serializer.Deserialize(fileStream);
+                company.ListenToEmployees();
+                company.CompanyChanged += OnCompanyChange;
 
                 filePath = path;
-
-                company.CompanyChanged += OnCompanyChange;
 
                 return company;
             }
         }
 
-        public static void SaveCompanyAs(Company company, string path)
+        public static void SaveCompanyAs(Company companyObj, string path)
         {
+            company = companyObj;
+            company.CompanyChanged += OnCompanyChange;
+
             XmlSerializer serializer = new XmlSerializer(typeof(Company));
 
-            StreamWriter writer = new StreamWriter(path);
+            fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
 
-            serializer.Serialize(writer, company);
-
-            writer.Close();
+            serializer.Serialize(fileStream, company);
         }
 
         public static void SaveCompany()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Company));
 
-           // StreamWriter writer = new StreamWriter(filePath);
-
             fileStream.SetLength(0);
             fileStream.Flush();
 
             serializer.Serialize(fileStream, company);
-
-            //writer.Close();
         }
 
         public static void CloseCompany()

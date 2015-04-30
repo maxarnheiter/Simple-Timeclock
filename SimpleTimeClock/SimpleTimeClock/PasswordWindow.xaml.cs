@@ -19,9 +19,41 @@ namespace SimpleTimeClock
     /// </summary>
     public partial class PasswordWindow : Window
     {
+
+        public string password;
+
         public PasswordWindow()
         {
             InitializeComponent();
+            password_box.Focus();
+        }
+
+        public PasswordWindow(string userName)
+        {
+            InitializeComponent();
+            user_name_label.Content = userName;
+            password_box.Focus();
+        }
+
+        private void submit_button_Click(object sender, RoutedEventArgs e)
+        {
+            password = password_box.Password;
+            this.Close();
+        }
+
+        private void cancel_button_Click(object sender, RoutedEventArgs e)
+        {
+            password = password_box.Password;
+            this.Close();
+        }
+
+        private void password_box_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                password = password_box.Password;
+                this.Close();
+            }
         }
     }
 }

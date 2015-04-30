@@ -41,18 +41,22 @@ namespace SimpleTimeClock
             in_listbox.DisplayMemberPath = "fullname";
             out_listbox.DisplayMemberPath = "fullname";
 
+            UpdateDateTimeLabels(null, null);
+            
             UpdateListBoxes();
         }
 
         private void settings_button_Click(object sender, RoutedEventArgs e)
         {
-            configWindow = new ConfigWindow(company);
-
-            if (configWindow.ShowDialog() == false)
+            if (DoPasswordPrompt("Admin", company.adminPassword) == true)
             {
-                UpdateListBoxes();
-            }
+                configWindow = new ConfigWindow(company);
 
+                if (configWindow.ShowDialog() == false)
+                {
+                    UpdateListBoxes();
+                }
+            }
         }
 
         private void UpdateListBoxes()
@@ -81,8 +85,11 @@ namespace SimpleTimeClock
         {
             if (current_out != null)
             {
-                current_out.ClockIn();
-                UpdateListBoxes();
+                if (DoPasswordPrompt(current_out.fullname, current_out.password) == true)
+                {
+                    current_out.ClockIn();
+                    UpdateListBoxes();
+                }
             }
         }
 
@@ -90,8 +97,11 @@ namespace SimpleTimeClock
         {
             if (current_in != null)
             {
-                current_in.ClockOut();
-                UpdateListBoxes();
+                if (DoPasswordPrompt(current_in.fullname, current_in.password) == true)
+                {
+                    current_in.ClockOut();
+                    UpdateListBoxes();
+                }
             }
         }
 
@@ -109,6 +119,47 @@ namespace SimpleTimeClock
             
         }
 
+        private bool DoPasswordPrompt(string displayName, string correctPassword)
+        {
+            PasswordWindow passwordWindow = new PasswordWindow(displayName);
+
+            if (passwordWindow.ShowDialog() == false)
+            {
+                if (passwordWindow.password == correctPassword)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid password.");
+                }
+            }
+
+            passwordWindow = null;
+            return false;
+        }
+
+        private void UpdateDateTimeLabels(object source, EventArgs e)
+        {
+            current_date_label.Content = DateTime.Now.ToString("MM/dd/yyy");
+            current_time_label.Content = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void Main_Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Threading.DispatcherTimer dispatcher = new System.Windows.Threading.DispatcherTimer();
+            dispatcher.Tick += new EventHandler(UpdateDateTimeLabels);
+            dispatcher.Interval = new TimeSpan(0, 0, 1);
+            dispatcher.Start();
+        }
+
+        private void settings_button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            if(DoPasswordPrompt("Export User", company.exportPassword) == true)
+            {
+                //TODO export via e-mail
+            }
+        }
       
     }
 }

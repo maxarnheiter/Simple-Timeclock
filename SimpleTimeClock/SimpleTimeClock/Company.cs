@@ -21,7 +21,7 @@ namespace SimpleTimeClock
         protected void OnCompanyChanged(object source, EventArgs e)
         {
             CompanyChangedEventHandler handler = CompanyChanged;
-            
+
             if (handler != null)
                 handler();
         }
@@ -103,32 +103,40 @@ namespace SimpleTimeClock
             get { return _employees; }
         }
 
-        public List<ClockAction> clockLog;
+        private readonly ObservableCollection<ClockAction> _clockLog;
 
-        public Company()
+        public ObservableCollection<ClockAction> clockLog
+        {
+            get { return _clockLog; }
+        }
+
+        //Called when we deserialize from XML
+        public Company()    
         {
             _employees = new ObservableCollection<Employee>();
+            _clockLog = new ObservableCollection<ClockAction>();
 
             PropertyChanged += OnCompanyChanged;
             employees.CollectionChanged += OnCompanyChanged;
-
-            foreach (Employee e in employees)
-            {
-                e.PropertyChanged += OnCompanyChanged;
-                e.PropertyChanged += OnEmployeeClockAction;
-            }
+            clockLog.CollectionChanged += OnCompanyChanged; 
         }
 
+        //Called when we create a new Company object from the GUI
         public Company(string newName, string adminPass)
         {
             adminPassword = adminPass;
             name = newName;
 
             _employees = new ObservableCollection<Employee>();
+            _clockLog = new ObservableCollection<ClockAction>();
 
             PropertyChanged += OnCompanyChanged;
             employees.CollectionChanged += OnCompanyChanged;
+            clockLog.CollectionChanged += OnCompanyChanged;
+        }
 
+        public void ListenToEmployees()
+        {
             foreach (Employee e in employees)
             {
                 e.PropertyChanged += OnCompanyChanged;
@@ -170,7 +178,11 @@ namespace SimpleTimeClock
             PropertyChangedEventArgs args = e as PropertyChangedEventArgs;
 
             if (args.PropertyName == "status")
-                Console.WriteLine("status change detected");
+            {
+                Employee employee = source as Employee;
+                ClockAction clockAction = new ClockAction(DateTime.Now, employee.status, employee.fullname);
+                _clockLog.Add(clockAction);
+            }
         }
 
     }
