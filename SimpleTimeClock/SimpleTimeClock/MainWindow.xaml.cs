@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace SimpleTimeClock
 {
@@ -26,6 +27,11 @@ namespace SimpleTimeClock
 
         Employee current_in;
         Employee current_out;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
 
         public MainWindow(Company companyObj)
         {
@@ -44,19 +50,6 @@ namespace SimpleTimeClock
             UpdateDateTimeLabels(null, null);
             
             UpdateListBoxes();
-        }
-
-        private void settings_button_Click(object sender, RoutedEventArgs e)
-        {
-            if (DoPasswordPrompt("Admin", company.adminPassword) == true)
-            {
-                configWindow = new ConfigWindow(company);
-
-                if (configWindow.ShowDialog() == false)
-                {
-                    UpdateListBoxes();
-                }
-            }
         }
 
         private void UpdateListBoxes()
@@ -153,13 +146,83 @@ namespace SimpleTimeClock
             dispatcher.Start();
         }
 
-        private void settings_button_Copy_Click(object sender, RoutedEventArgs e)
+        private void clock_in_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if(DoPasswordPrompt("Export User", company.exportPassword) == true)
+
+        }
+
+        private void clock_out_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void open_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            if (fileDialog.ShowDialog() == true)
             {
-                //TODO export via e-mail
+                company = AppManager.OpenCompany(fileDialog.FileName);
+
+                if (company == null)
+                    MessageBox.Show("Failed to open company file.");
+            }
+
+            fileDialog = null;
+        }
+
+        private void create_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+            NewCompanyWindow newCompanyWindow = new NewCompanyWindow();
+
+            if (newCompanyWindow.ShowDialog() == false)
+            {
+                if (newCompanyWindow.newCompany != null)
+                {
+                    company = newCompanyWindow.newCompany;
+                }
+            }
+
+            newCompanyWindow = null;
+        }
+
+        private void save_as_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void close_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void settings_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+            if (DoPasswordPrompt("Admin", company.adminPassword) == true)
+            {
+                configWindow = new ConfigWindow(company);
+
+                if (configWindow.ShowDialog() == false)
+                {
+                    UpdateListBoxes();
+                }
             }
         }
-      
+
+        private void export_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+            if (DoPasswordPrompt("Export User", company.exportPassword) == true)
+            {
+                ExportWindow exportWindow = new ExportWindow(company);
+
+                if (exportWindow.ShowDialog() == false)
+                {
+                    //do something
+                }
+
+            }
+        }
+
+        
     }
 }

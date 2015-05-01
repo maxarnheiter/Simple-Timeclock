@@ -12,10 +12,10 @@ C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.exe
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SimpleTimeClock.pdb
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ConfigWindow.baml
-C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.baml
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ConfigWindow.g.cs
-C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\SetupWindow.g.cs
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\NewCompanyWindow.baml
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PasswordWindow.baml
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\NewCompanyWindow.g.cs
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PasswordWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ExportWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ExportWindow.g.cs
