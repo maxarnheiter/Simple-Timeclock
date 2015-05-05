@@ -21,11 +21,9 @@ namespace SimpleTimeClock
     public partial class NewCompanyWindow : Window
     {
 
-        public Company newCompany;
-
-        string newCompanyName = "";
-        string adminPassword = "";
-        string adminPasswordRepeat = "";
+        public string newCompanyName = "";
+        public string adminPassword = "";
+        public string adminPasswordRepeat = "";
 
         public NewCompanyWindow()
         {
@@ -46,22 +44,6 @@ namespace SimpleTimeClock
                 return;
             }
 
-            //Create the new company object
-            newCompany = new Company(newCompanyName, adminPassword);
-
-            //Create and configure the save file dialog
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.FileName = newCompany.name + ".xml";
-            saveDialog.Filter = "XML Files (*.xml)|*.xml";
-
-            //Save the file when we get a path
-            if(saveDialog.ShowDialog() == true)
-            {
-                AppManager.SaveCompanyAs(newCompany, saveDialog.FileName);
-            }
-
-            //Show success, and close
-            MessageBox.Show("Company file created successfully.");
             this.Close();
         }
 
@@ -121,11 +103,6 @@ namespace SimpleTimeClock
         {
             adminPasswordRepeat = admin_password_repeat_textbox.Text;
         }
-
-
-
-
-    
 
     }
 }

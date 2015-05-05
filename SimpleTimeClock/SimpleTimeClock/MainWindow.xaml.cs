@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.IO;
 
 namespace SimpleTimeClock
 {
@@ -21,95 +22,124 @@ namespace SimpleTimeClock
     /// </summary>
     public partial class MainWindow : Window
     {
-        Company company;
+
+        bool isFileOpen;
+        FileStream fileStream;
+        string filePath;
+
+
+        Company _company;
+        Company company
+        {
+            get { return _company; }
+            set
+            {
+                if (value != _company)
+                {
+                    _company = value;
+                    CompanyChanged();
+                }
+            }
+        }
+
+        event Action CompanyChanged;
+
+        Employee _current;
+        Employee current
+        {
+            get { return _current; }
+            set
+            {
+                if (value != _current)
+                {
+                    _current = value;
+                    CurrentEmployeeChanged();
+                }
+            }
+        }
+
+        event Action CurrentEmployeeChanged;
 
         ConfigWindow configWindow;
-
-        Employee current_in;
-        Employee current_out;
 
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        public MainWindow(Company companyObj)
-        {
-            InitializeComponent();
-            company = companyObj;
-            InitializeUI();
-        }
+            CompanyChanged += OnCompanyChanged;
+            CurrentEmployeeChanged += OnCurrentEmployeeChanged;
 
-        private void InitializeUI()
-        {
-            company_name_label.Content = company.name;
 
             in_listbox.DisplayMemberPath = "fullname";
             out_listbox.DisplayMemberPath = "fullname";
 
             UpdateDateTimeLabels(null, null);
-            
+        }
+
+    //Custom methods
+
+        private void OnCompanyChanged()
+        {
+            if (company != null)
+            {
+                company_name_label.Content = company.name;
+
+                company.CompanyChanged += OnCompanyDataChanged;
+            }
+            else
+            {
+                company_name_label.Content = "NO COMPANY LOADED";
+            }
+
             UpdateListBoxes();
+        }
+
+        private void OnCompanyDataChanged()
+        {
+            FileManager.SaveCompany(company, fileStream);
+            UpdateListBoxes();
+        }
+
+        private void OnCurrentEmployeeChanged()
+        {
+            if (current == in_listbox.SelectedItem)
+            {
+                out_listbox.SelectedItem = null;
+            }
+
+            if (current == out_listbox.SelectedItem)
+            {
+                in_listbox.SelectedItem = null;
+            }
         }
 
         private void UpdateListBoxes()
         {
-            //Loop through all employees to potentially add
-            foreach (Employee employee in company.employees)
+            if (company != null)
             {
-                if (employee.status == ClockStatus.In)
+                foreach (Employee employee in company.employees)
                 {
-                    if (!in_listbox.Items.Contains(employee))
-                        in_listbox.Items.Add(employee);
-                    if (out_listbox.Items.Contains(employee))
-                        out_listbox.Items.Remove(employee);
-                }
-                if (employee.status == ClockStatus.Out)
-                {
-                    if (!out_listbox.Items.Contains(employee))
-                        out_listbox.Items.Add(employee);
-                    if (in_listbox.Items.Contains(employee))
-                        in_listbox.Items.Remove(employee);
+                    if (employee.status == ClockStatus.In)
+                    {
+                        if (!in_listbox.Items.Contains(employee))
+                            in_listbox.Items.Add(employee);
+                        if (out_listbox.Items.Contains(employee))
+                            out_listbox.Items.Remove(employee);
+                    }
+                    if (employee.status == ClockStatus.Out)
+                    {
+                        if (!out_listbox.Items.Contains(employee))
+                            out_listbox.Items.Add(employee);
+                        if (in_listbox.Items.Contains(employee))
+                            in_listbox.Items.Remove(employee);
+                    }
                 }
             }
-        }
-
-        private void clock_in_button_Click(object sender, RoutedEventArgs e)
-        {
-            if (current_out != null)
+            else
             {
-                if (DoPasswordPrompt(current_out.fullname, current_out.password) == true)
-                {
-                    current_out.ClockIn();
-                    UpdateListBoxes();
-                }
+                in_listbox.Items.Clear();
+                out_listbox.Items.Clear();
             }
-        }
-
-        private void clock_out_button_Click(object sender, RoutedEventArgs e)
-        {
-            if (current_in != null)
-            {
-                if (DoPasswordPrompt(current_in.fullname, current_in.password) == true)
-                {
-                    current_in.ClockOut();
-                    UpdateListBoxes();
-                }
-            }
-        }
-
-        private void out_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (out_listbox.SelectedItem != null)
-                current_out = out_listbox.SelectedItem as Employee;
-            
-        }
-
-        private void in_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (in_listbox.SelectedItem != null)
-                current_in = in_listbox.SelectedItem as Employee;
-            
         }
 
         private bool DoPasswordPrompt(string displayName, string correctPassword)
@@ -138,6 +168,51 @@ namespace SimpleTimeClock
             current_time_label.Content = DateTime.Now.ToString("HH:mm:ss");
         }
 
+    //Methods called by interface
+
+        private void clock_in_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (current != null)
+            {
+                if (DoPasswordPrompt(current.fullname, current.password) == true)
+                {
+                    current.ClockIn();
+                    UpdateListBoxes();
+                }
+            }
+        }
+
+        private void clock_out_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (current != null)
+            {
+                if (DoPasswordPrompt(current.fullname, current.password) == true)
+                {
+                    current.ClockOut();
+                    UpdateListBoxes();
+                }
+            }
+        }
+
+        private void out_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (out_listbox.SelectedItem != null)
+            {
+                current = out_listbox.SelectedItem as Employee;
+
+            }
+            
+        }
+
+        private void in_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (in_listbox.SelectedItem != null)
+            {
+                current = in_listbox.SelectedItem as Employee;
+            }
+            
+        }
+
         private void Main_Window_Loaded(object sender, RoutedEventArgs e)
         {
             System.Windows.Threading.DispatcherTimer dispatcher = new System.Windows.Threading.DispatcherTimer();
@@ -148,78 +223,124 @@ namespace SimpleTimeClock
 
         private void clock_in_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            current.ClockIn();
         }
 
         private void clock_out_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            current.ClockOut();
         }
 
         private void open_menu_item_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-
-            if (fileDialog.ShowDialog() == true)
+            if (!isFileOpen)
             {
-                company = AppManager.OpenCompany(fileDialog.FileName);
+                OpenFileDialog fileDialog = new OpenFileDialog();
 
-                if (company == null)
-                    MessageBox.Show("Failed to open company file.");
+                if (fileDialog.ShowDialog() == true)
+                {
+                    filePath = fileDialog.FileName;
+
+                    fileStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+
+                    company = FileManager.OpenCompany(filePath, fileStream);
+
+                    if (company == null)
+                    {
+                        fileStream.Close();
+                        filePath = null;
+
+                        MessageBox.Show("Failed to open company file.");
+                    }
+
+                    isFileOpen = true;
+                    company.ListenToEmployees();    //Secret socialist statement
+                }
+
             }
-
-            fileDialog = null;
+            else
+            {
+                MessageBox.Show("Must close current company file.");
+            }
         }
 
         private void create_menu_item_Click(object sender, RoutedEventArgs e)
         {
-            NewCompanyWindow newCompanyWindow = new NewCompanyWindow();
-
-            if (newCompanyWindow.ShowDialog() == false)
+            if (!isFileOpen)
             {
-                if (newCompanyWindow.newCompany != null)
+                NewCompanyWindow newCompanyWindow = new NewCompanyWindow();
+
+                if (newCompanyWindow.ShowDialog() == false)
                 {
-                    company = newCompanyWindow.newCompany;
+                    company = new Company(newCompanyWindow.newCompanyName, newCompanyWindow.adminPassword);
+
+                    //Create and configure the save file dialog
+                    SaveFileDialog saveDialog = new SaveFileDialog();
+                    saveDialog.FileName = company.name + ".xml";
+                    saveDialog.Filter = "XML Files (*.xml)|*.xml";
+
+                    //Save the file when we get a path
+                    if (saveDialog.ShowDialog() == true)
+                    {
+                        filePath = saveDialog.FileName;
+                        fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                        FileManager.SaveCompany(company, fileStream);
+                    }
+
+                    //Show success, and close
+                    MessageBox.Show("Company file created successfully.");
+
+                    isFileOpen = true;
+                    company.ListenToEmployees();
                 }
             }
-
-            newCompanyWindow = null;
-        }
-
-        private void save_as_menu_item_Click(object sender, RoutedEventArgs e)
-        {
-
+            else
+            {
+                MessageBox.Show("Must close current company file.");
+            }
         }
 
         private void close_menu_item_Click(object sender, RoutedEventArgs e)
         {
-
+            if (isFileOpen)
+            {
+                fileStream.Close();
+                filePath = null;
+                company = null;
+                isFileOpen = false;
+            }
         }
 
         private void settings_menu_item_Click(object sender, RoutedEventArgs e)
         {
-            if (DoPasswordPrompt("Admin", company.adminPassword) == true)
+            if (isFileOpen)
             {
-                configWindow = new ConfigWindow(company);
-
-                if (configWindow.ShowDialog() == false)
+                if (DoPasswordPrompt("Admin", company.adminPassword) == true)
                 {
-                    UpdateListBoxes();
+                    configWindow = new ConfigWindow(company);
+
+                    if (configWindow.ShowDialog() == false)
+                    {
+                        UpdateListBoxes();
+                    }
                 }
             }
         }
 
         private void export_menu_item_Click(object sender, RoutedEventArgs e)
         {
-            if (DoPasswordPrompt("Export User", company.exportPassword) == true)
+            if (isFileOpen)
             {
-                ExportWindow exportWindow = new ExportWindow(company);
-
-                if (exportWindow.ShowDialog() == false)
+                if (DoPasswordPrompt("Export User", company.exportPassword) == true)
                 {
-                    //do something
-                }
+                    ExportWindow exportWindow = new ExportWindow(company);
 
+                    if (exportWindow.ShowDialog() == false)
+                    {
+                        //do something
+                    }
+
+                }
             }
         }
 
