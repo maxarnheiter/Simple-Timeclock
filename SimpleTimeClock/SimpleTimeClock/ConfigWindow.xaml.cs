@@ -168,6 +168,15 @@ namespace SimpleTimeClock
 
         private void employees_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (employees_listbox.SelectedItem != null)
+            {
+                employee_fname_textbox.IsEnabled = true;
+                employee_lname_textbox.IsEnabled = true;
+                employee_password_passwordbox.IsEnabled = true;
+                employee_password_textbox.IsEnabled = true;
+                show_employee_checkbox.IsEnabled = true;
+            }
+
             if ((employees_listbox.SelectedItem as Employee) != current)
             {
                 current = employees_listbox.SelectedItem as Employee;

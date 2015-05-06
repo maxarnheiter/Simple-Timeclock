@@ -133,6 +133,9 @@ namespace SimpleTimeClock
                         if (in_listbox.Items.Contains(employee))
                             in_listbox.Items.Remove(employee);
                     }
+
+                    in_listbox.Items.Refresh();
+                    out_listbox.Items.Refresh();
                 }
             }
             else
@@ -200,6 +203,11 @@ namespace SimpleTimeClock
             {
                 current = out_listbox.SelectedItem as Employee;
 
+                clock_in_image.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                clock_in_image.Visibility = Visibility.Hidden;
             }
             
         }
@@ -209,6 +217,12 @@ namespace SimpleTimeClock
             if (in_listbox.SelectedItem != null)
             {
                 current = in_listbox.SelectedItem as Employee;
+
+                clock_out_image.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                clock_out_image.Visibility = Visibility.Hidden;
             }
             
         }
@@ -274,12 +288,11 @@ namespace SimpleTimeClock
                 {
                     company = new Company(newCompanyWindow.newCompanyName, newCompanyWindow.adminPassword);
 
-                    //Create and configure the save file dialog
                     SaveFileDialog saveDialog = new SaveFileDialog();
                     saveDialog.FileName = company.name + ".xml";
                     saveDialog.Filter = "XML Files (*.xml)|*.xml";
 
-                    //Save the file when we get a path
+
                     if (saveDialog.ShowDialog() == true)
                     {
                         filePath = saveDialog.FileName;
@@ -287,7 +300,6 @@ namespace SimpleTimeClock
                         FileManager.SaveCompany(company, fileStream);
                     }
 
-                    //Show success, and close
                     MessageBox.Show("Company file created successfully.");
 
                     isFileOpen = true;
@@ -336,6 +348,23 @@ namespace SimpleTimeClock
                     ExportWindow exportWindow = new ExportWindow(company);
 
                     if (exportWindow.ShowDialog() == false)
+                    {
+                        //do something
+                    }
+
+                }
+            }
+        }
+
+        private void pto_menu_item_Click(object sender, RoutedEventArgs e)
+        {
+            if (isFileOpen)
+            {
+                if (DoPasswordPrompt("Export User", company.exportPassword) == true)
+                {
+                    PTOWindow ptoWindow = new PTOWindow(company);
+
+                    if (ptoWindow.ShowDialog() == false)
                     {
                         //do something
                     }

@@ -67,6 +67,13 @@
     <Compile Include="PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PTOAction.cs" />
+    <Compile Include="PTOPromptWindow.xaml.cs">
+      <DependentUpon>PTOPromptWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PTOWindow.xaml.cs">
+      <DependentUpon>PTOWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +103,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PTOPromptWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PTOWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

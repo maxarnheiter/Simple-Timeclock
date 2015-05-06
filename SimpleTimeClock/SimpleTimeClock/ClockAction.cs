@@ -10,19 +10,22 @@ namespace SimpleTimeClock
     {
         public DateTime time;
 
-        public ClockStatus status;
+        public ClockStatus clockStatus;
 
         public string employeeName;
+
+        public int employeeId;
 
         public ClockAction()
         {
         }
 
-        public ClockAction(DateTime clockTime, ClockStatus clockStatus, string empName)
+        public ClockAction(DateTime time, ClockStatus clockStatus, string employeeName, int employeeId)
         {
-            time = clockTime;
-            status = clockStatus;
-            employeeName = empName;
+            this.time = time;
+            this.clockStatus = clockStatus;
+            this.employeeName = employeeName;
+            this.employeeId = employeeId;
         }
 
     }

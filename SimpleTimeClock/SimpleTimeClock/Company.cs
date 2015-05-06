@@ -96,18 +96,25 @@ namespace SimpleTimeClock
             }
         }
 
-        private readonly ObservableCollection<Employee> _employees;
+        private ObservableCollection<Employee> _employees;
 
         public ObservableCollection<Employee> employees
         {
             get { return _employees; }
         }
 
-        private readonly ObservableCollection<ClockAction> _clockLog;
+        private ObservableCollection<ClockAction> _clockLog;
 
         public ObservableCollection<ClockAction> clockLog
         {
             get { return _clockLog; }
+        }
+
+        private ObservableCollection<PTOAction> _ptoLog;
+
+        public ObservableCollection<PTOAction> ptoLog
+        {
+            get { return _ptoLog; }
         }
 
         //Called when we deserialize from XML
@@ -115,10 +122,12 @@ namespace SimpleTimeClock
         {
             _employees = new ObservableCollection<Employee>();
             _clockLog = new ObservableCollection<ClockAction>();
+            _ptoLog = new ObservableCollection<PTOAction>();
 
             PropertyChanged += OnCompanyChanged;
             employees.CollectionChanged += OnCompanyChanged;
-            clockLog.CollectionChanged += OnCompanyChanged; 
+            clockLog.CollectionChanged += OnCompanyChanged;
+            ptoLog.CollectionChanged += OnCompanyChanged;
         }
 
         //Called when we create a new Company object from the GUI
@@ -129,10 +138,12 @@ namespace SimpleTimeClock
 
             _employees = new ObservableCollection<Employee>();
             _clockLog = new ObservableCollection<ClockAction>();
+            _ptoLog = new ObservableCollection<PTOAction>();
 
             PropertyChanged += OnCompanyChanged;
             employees.CollectionChanged += OnCompanyChanged;
             clockLog.CollectionChanged += OnCompanyChanged;
+            ptoLog.CollectionChanged += OnCompanyChanged;
         }
 
         public void ListenToEmployees()
@@ -144,12 +155,24 @@ namespace SimpleTimeClock
             }
         }
 
+        public void AddPTOAction(PTOAction ptoAction)
+        {
+            _ptoLog.Add(ptoAction);
+        }
+
         public Employee AddEmployee(string emp_fname, string emp_lname, string emp_pword)
         {
             if (employees.Any(e => e.fname == emp_fname && e.lname == emp_lname))
                 return null;
 
-            Employee employee = new Employee(emp_fname, emp_lname, emp_pword);
+            int nextHighestId;
+
+            if (employees.Count == 0)
+                nextHighestId = 0;
+            else
+                nextHighestId = employees.Max(e => e.id) + 1;
+
+            Employee employee = new Employee(nextHighestId, emp_fname, emp_lname, emp_pword);
 
             employee.PropertyChanged += OnCompanyChanged;
             employee.PropertyChanged += OnEmployeeClockAction;
@@ -161,7 +184,7 @@ namespace SimpleTimeClock
 
         public bool RemoveEmployee(Employee employee)
         {
-            if (employees.Any(e => e.fname == employee.fname && e.lname == employee.lname))
+            if (employees.Any(e => e.id == employee.id))
             {
                 employee.PropertyChanged -= OnCompanyChanged;
                 employee.PropertyChanged -= OnEmployeeClockAction;
@@ -180,7 +203,7 @@ namespace SimpleTimeClock
             if (args.PropertyName == "status")
             {
                 Employee employee = source as Employee;
-                ClockAction clockAction = new ClockAction(DateTime.Now, employee.status, employee.fullname);
+                ClockAction clockAction = new ClockAction(DateTime.Now, employee.status, employee.fullname, employee.id);
                 _clockLog.Add(clockAction);
             }
         }

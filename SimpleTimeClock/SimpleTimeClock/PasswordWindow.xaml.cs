@@ -21,6 +21,7 @@ namespace SimpleTimeClock
     {
 
         public string password;
+        public bool canceled;
 
         public PasswordWindow()
         {

@@ -12,7 +12,7 @@
         <Label Content="Current Date:" HorizontalAlignment="Left" Margin="6,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.868,0.462" Height="24" Width="87"/>
         <Label x:Name="current_date_label" Content="1/1/2010&#xA;" HorizontalAlignment="Left" Margin="107,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.658,0.423" Width="115" Height="24" FontWeight="Bold"/>
         <Label Content="Company Name: " HorizontalAlignment="Left" Margin="6,27,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="2.078,-0.231"/>
-        <Label x:Name="company_name_label" Content="&lt;Company Name&gt;" HorizontalAlignment="Left" Margin="109,27,0,0" VerticalAlignment="Top" Width="176" FontWeight="Bold"/>
+        <Label x:Name="company_name_label" Content="NO COMPANY LOADED" HorizontalAlignment="Left" Margin="109,27,0,0" VerticalAlignment="Top" Width="176" FontWeight="Bold"/>
         <Menu HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="525">
             <Menu.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -21,16 +21,27 @@
                 </LinearGradientBrush>
             </Menu.Background>
             <MenuItem Header="File">
-                <MenuItem x:Name="open_menu_item" Header="Open" Click="open_menu_item_Click"/>
-                <MenuItem x:Name="create_menu_item" Header="Create" Click="create_menu_item_Click"/>
-                <MenuItem x:Name="save_as_menu_item" Header="Save As" Click="save_as_menu_item_Click"/>
+                <MenuItem x:Name="open_menu_item" Header="Load" Click="open_menu_item_Click"/>
+                <MenuItem x:Name="create_menu_item" Header="Create New" Click="create_menu_item_Click"/>
                 <MenuItem x:Name="close_menu_item" Header="Close" Click="close_menu_item_Click"/>
             </MenuItem>
             <MenuItem x:Name="settings_menu_item" Header="Settings" Click="settings_menu_item_Click"/>
             <MenuItem x:Name="export_menu_item" Header="Export" Click="export_menu_item_Click"/>
+            <MenuItem x:Name="pto_menu_item" Header="PTO" Click="pto_menu_item_Click"/>
         </Menu>
-        <Image x:Name="clock_in_image" HorizontalAlignment="Left" Height="26" Margin="184,193,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_black.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_in_image_MouseLeftButtonUp"/>
-        <Image x:Name="clock_out_image" HorizontalAlignment="Left" Height="26" Margin="184,299,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_black.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_out_image_MouseLeftButtonUp">
+        <Image x:Name="clock_in_image" HorizontalAlignment="Left" Height="26" Margin="184,193,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_black.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_in_image_MouseLeftButtonUp" Visibility="Hidden"/>
+        <Image x:Name="clock_out_image" HorizontalAlignment="Left" Height="26" Margin="184,299,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_black.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_out_image_MouseLeftButtonUp" Visibility="Hidden">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="clock_in_image_gray" HorizontalAlignment="Left" Height="26" Margin="184,193,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_gray.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_in_image_MouseLeftButtonUp" Visibility="Visible"/>
+        <Image x:Name="clock_out_image_gray" HorizontalAlignment="Left" Height="26" Margin="184,299,0,0" VerticalAlignment="Top" Width="55" Source="Images/arrow_gray.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="clock_out_image_MouseLeftButtonUp" Visibility="Visible">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

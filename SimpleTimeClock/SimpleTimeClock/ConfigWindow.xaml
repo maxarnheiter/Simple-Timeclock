@@ -9,8 +9,8 @@
         <Button x:Name="close_button" Content="Close" HorizontalAlignment="Left" Margin="507,415,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-1,0.182" Click="close_button_Click"/>
         <Label Content="First Name: " HorizontalAlignment="Left" Margin="17,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.053,-0.115" Height="25" Width="80"/>
         <Label Content="Last Name: " HorizontalAlignment="Left" Margin="17,372,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.053,-0.115" Height="25" Width="80"/>
-        <TextBox x:Name="employee_fname_textbox" HorizontalAlignment="Left" Height="23" Margin="102,334,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" TextChanged="employee_fname_textbox_TextChanged"/>
-        <TextBox x:Name="employee_lname_textbox" HorizontalAlignment="Left" Height="23" Margin="102,372,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" TextChanged="employee_lname_textbox_TextChanged"/>
+        <TextBox x:Name="employee_fname_textbox" HorizontalAlignment="Left" Height="23" Margin="102,334,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" TextChanged="employee_fname_textbox_TextChanged" IsEnabled="False"/>
+        <TextBox x:Name="employee_lname_textbox" HorizontalAlignment="Left" Height="23" Margin="102,372,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="199" TextChanged="employee_lname_textbox_TextChanged" IsEnabled="False"/>
         <TextBox x:Name="admin_password_textbox" HorizontalAlignment="Left" Height="20" Margin="324,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Visibility="Hidden" TextChanged="admin_password_textbox_TextChanged"/>
         <Label Content="Admin Password:" HorizontalAlignment="Left" Margin="324,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.053,-0.115" Height="25" Width="107"/>
         <CheckBox x:Name="show_admin_checkbox" Content="Show" HorizontalAlignment="Left" Margin="519,48,0,0" VerticalAlignment="Top" Height="29" Width="74" Checked="show_admin_checkbox_Checked" Unchecked="show_admin_checkbox_Unchecked"/>
@@ -21,10 +21,10 @@
         <Label Content="Export E-mail:" HorizontalAlignment="Left" Margin="324,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.053,-0.115" Height="25" Width="139"/>
         <PasswordBox x:Name="admin_password_passwordbox" HorizontalAlignment="Left" Margin="324,48,0,0" VerticalAlignment="Top" Width="179" PasswordChanged="admin_password_passwordbox_PasswordChanged"/>
         <PasswordBox x:Name="export_password_passwordbox" HorizontalAlignment="Left" Margin="324,105,0,0" VerticalAlignment="Top" Width="179" PasswordChanged="export_password_passwordbox_PasswordChanged"/>
-        <PasswordBox x:Name="employee_password_passwordbox" HorizontalAlignment="Left" Margin="102,413,0,0" VerticalAlignment="Top" Width="128" PasswordChanged="employee_password_passwordbox_PasswordChanged"/>
+        <PasswordBox x:Name="employee_password_passwordbox" HorizontalAlignment="Left" Margin="102,413,0,0" VerticalAlignment="Top" Width="128" PasswordChanged="employee_password_passwordbox_PasswordChanged" IsEnabled="False"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="15,408,0,0" VerticalAlignment="Top" Width="66"/>
-        <TextBox x:Name="employee_password_textbox" HorizontalAlignment="Left" Height="23" Margin="102,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Visibility="Hidden" TextChanged="employee_password_textbox_TextChanged"/>
-        <CheckBox x:Name="show_employee_checkbox" Content="Show" HorizontalAlignment="Left" Margin="248,413,0,0" VerticalAlignment="Top" Height="29" Width="74" Checked="show_employee_checkbox_Checked" Unchecked="show_employee_checkbox_Unchecked"/>
+        <TextBox x:Name="employee_password_textbox" HorizontalAlignment="Left" Height="23" Margin="102,415,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Visibility="Hidden" TextChanged="employee_password_textbox_TextChanged" IsEnabled="False"/>
+        <CheckBox x:Name="show_employee_checkbox" Content="Show" HorizontalAlignment="Left" Margin="248,413,0,0" VerticalAlignment="Top" Height="29" Width="74" Checked="show_employee_checkbox_Checked" Unchecked="show_employee_checkbox_Unchecked" IsEnabled="False"/>
 
     </Grid>
 </Window>

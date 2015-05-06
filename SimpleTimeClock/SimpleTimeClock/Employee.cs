@@ -23,6 +23,12 @@ namespace SimpleTimeClock
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
+        private int _id;
+        public int id
+        {
+            get { return _id; }
+        }
+
         private string _fname;
         public string fname
         {
@@ -87,17 +93,12 @@ namespace SimpleTimeClock
         public Employee()
         { }
 
-        public Employee(string f_name, string l_name)
+        public Employee(int id, string fname, string lname, string password)
         {
-            _fname = f_name;
-            _lname = l_name;
-        }
-
-        public Employee(string f_name, string l_name, string pword)
-        {
-            _fname = f_name;
-            _lname = l_name;
-            _password = pword;
+            this._id = id;
+            this._fname = fname;
+            this._lname = lname;
+            this._password = password;
         }
 
         public void ClockIn()

@@ -19,3 +19,7 @@ C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PasswordWindow.g.cs
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ExportWindow.baml
 C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\ExportWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PTOWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PTOWindow.g.cs
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PTOPromptWindow.baml
+C:\Users\max_a\Documents\GitHub\Simple-Timeclock\SimpleTimeClock\SimpleTimeClock\obj\Debug\PTOPromptWindow.g.cs
