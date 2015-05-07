@@ -101,6 +101,7 @@ namespace SimpleTimeClock
         public ObservableCollection<Employee> employees
         {
             get { return _employees; }
+            set { return; }
         }
 
         private ObservableCollection<ClockAction> _clockLog;
@@ -108,6 +109,7 @@ namespace SimpleTimeClock
         public ObservableCollection<ClockAction> clockLog
         {
             get { return _clockLog; }
+            set { return; }
         }
 
         private ObservableCollection<PTOAction> _ptoLog;
@@ -115,6 +117,7 @@ namespace SimpleTimeClock
         public ObservableCollection<PTOAction> ptoLog
         {
             get { return _ptoLog; }
+            set { return; }
         }
 
         //Called when we deserialize from XML

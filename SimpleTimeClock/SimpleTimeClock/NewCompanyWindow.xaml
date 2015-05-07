@@ -6,8 +6,8 @@
         <Label Content="Name:" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Height="23" Width="60"/>
         <TextBox x:Name="company_name_textbox" HorizontalAlignment="Left" Height="23" Margin="122,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" TextChanged="company_name_textbox_TextChanged"/>
         <Label Content="Admin Password:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="107"/>
-        <Button x:Name="cancel_button" Content="Cancel" HorizontalAlignment="Left" Margin="248,137,0,0" VerticalAlignment="Top" Width="75" Click="cancel_button_Click"/>
-        <Button x:Name="create_button" Content="Create" HorizontalAlignment="Left" Margin="157,137,0,0" VerticalAlignment="Top" Width="75" Click="create_button_Click"/>
+        <Button x:Name="cancel_button" Content="Cancel" HorizontalAlignment="Left" Margin="168,137,0,0" VerticalAlignment="Top" Width="75" Click="cancel_button_Click"/>
+        <Button x:Name="create_button" Content="Create" HorizontalAlignment="Left" Margin="248,137,0,0" VerticalAlignment="Top" Width="75" Click="create_button_Click"/>
         <Label Content="Repeat Password:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
         <PasswordBox x:Name="admin_password_passwordbox" HorizontalAlignment="Left" Margin="122,50,0,0" VerticalAlignment="Top" Width="200" PasswordChanged="admin_password_passwordbox_PasswordChanged"/>
         <PasswordBox x:Name="admin_password_repeat_passwordbox" HorizontalAlignment="Left" Margin="122,76,0,0" VerticalAlignment="Top" Width="200" PasswordChanged="admin_password_repeat_passwordbox_PasswordChanged"/>

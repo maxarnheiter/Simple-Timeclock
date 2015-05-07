@@ -145,26 +145,6 @@ namespace SimpleTimeClock
             }
         }
 
-        private bool DoPasswordPrompt(string displayName, string correctPassword)
-        {
-            PasswordWindow passwordWindow = new PasswordWindow(displayName);
-
-            if (passwordWindow.ShowDialog() == false)
-            {
-                if (passwordWindow.password == correctPassword)
-                {
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid password.");
-                }
-            }
-
-            passwordWindow = null;
-            return false;
-        }
-
         private void UpdateDateTimeLabels(object source, EventArgs e)
         {
             current_date_label.Content = DateTime.Now.ToString("MM/dd/yyy");
@@ -177,7 +157,7 @@ namespace SimpleTimeClock
         {
             if (current != null)
             {
-                if (DoPasswordPrompt(current.fullname, current.password) == true)
+                if (PasswordWindow.DoPasswordPrompt(current.fullname, current.password) == true)
                 {
                     current.ClockIn();
                     UpdateListBoxes();
@@ -189,7 +169,7 @@ namespace SimpleTimeClock
         {
             if (current != null)
             {
-                if (DoPasswordPrompt(current.fullname, current.password) == true)
+                if (PasswordWindow.DoPasswordPrompt(current.fullname, current.password) == true)
                 {
                     current.ClockOut();
                     UpdateListBoxes();
@@ -327,7 +307,7 @@ namespace SimpleTimeClock
         {
             if (isFileOpen)
             {
-                if (DoPasswordPrompt("Admin", company.adminPassword) == true)
+                if (PasswordWindow.DoPasswordPrompt("Admin", company.adminPassword) == true)
                 {
                     configWindow = new ConfigWindow(company);
 
@@ -343,7 +323,7 @@ namespace SimpleTimeClock
         {
             if (isFileOpen)
             {
-                if (DoPasswordPrompt("Export User", company.exportPassword) == true)
+                if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword) == true)
                 {
                     ExportWindow exportWindow = new ExportWindow(company);
 
@@ -360,15 +340,11 @@ namespace SimpleTimeClock
         {
             if (isFileOpen)
             {
-                if (DoPasswordPrompt("Export User", company.exportPassword) == true)
+                PTOWindow ptoWindow = new PTOWindow(company);
+
+                if (ptoWindow.ShowDialog() == false)
                 {
-                    PTOWindow ptoWindow = new PTOWindow(company);
-
-                    if (ptoWindow.ShowDialog() == false)
-                    {
-                        //do something
-                    }
-
+                    //do something
                 }
             }
         }

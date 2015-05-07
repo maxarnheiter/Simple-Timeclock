@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PTOPromptWindow" Height="188" Width="350">
     <Grid>
-        <Button x:Name="submit_button" Content="Submit" HorizontalAlignment="Left" Margin="227,127,0,0" VerticalAlignment="Top" Width="53" Click="submit_button_Click"/>
-        <Button x:Name="close_button" Content="Close" HorizontalAlignment="Left" Margin="285,127,0,0" VerticalAlignment="Top" Width="47" RenderTransformOrigin="1.053,0.591" Click="close_button_Click"/>
+        <Button x:Name="submit_button" Content="Submit" HorizontalAlignment="Left" Margin="279,126,0,0" VerticalAlignment="Top" Width="53" Click="submit_button_Click"/>
+        <Button x:Name="close_button" Content="Close" HorizontalAlignment="Left" Margin="227,126,0,0" VerticalAlignment="Top" Width="47" RenderTransformOrigin="1.053,0.591" Click="close_button_Click"/>
         <Label Content="Amount of PTO (hours)" HorizontalAlignment="Left" Margin="152,7,0,0" VerticalAlignment="Top" Width="132"/>
         <TextBox x:Name="amount_textbox" HorizontalAlignment="Left" Height="23" Margin="284,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
         <TextBox x:Name="description_textbox" HorizontalAlignment="Left" Height="56" Margin="10,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>

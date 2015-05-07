@@ -55,6 +55,29 @@ namespace SimpleTimeClock
                 password = password_box.Password;
                 this.Close();
             }
+           
+        }
+
+
+    //Static call
+        public static bool DoPasswordPrompt(string displayName, string correctPassword)
+        {
+            PasswordWindow passwordWindow = new PasswordWindow(displayName);
+
+            if (passwordWindow.ShowDialog() == false)
+            {
+                if (passwordWindow.password == correctPassword)
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid password.");
+                }
+            }
+
+            passwordWindow = null;
+            return false;
         }
     }
 }

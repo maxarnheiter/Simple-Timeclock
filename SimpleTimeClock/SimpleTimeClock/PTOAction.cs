@@ -14,9 +14,11 @@ public class PTOAction
 
     public string employeeName;
 
-    public float month;
+    public int employeeId;
 
-    public float year;
+    public int month;
+
+    public int year;
 
     public string description;
 
@@ -24,11 +26,12 @@ public class PTOAction
     {
     }
 
-    public PTOAction(DateTime time, float PTOAmount, string employeeName, float month, float year, string description)
+    public PTOAction(DateTime time, float PTOAmount, string employeeName, int employeeId, int month, int year, string description)
     {
         this.time = time;
         this.PTOAmount = PTOAmount;
         this.employeeName = employeeName;
+        this.employeeId = employeeId;
         this.month = month;
         this.year = year;
         this.description = description;

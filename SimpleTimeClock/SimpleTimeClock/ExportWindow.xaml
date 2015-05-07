@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ExportWindow" Height="235" Width="363" Loaded="Export_Window_Loaded">
     <Grid>
-        <ComboBox x:Name="year_combo_box" HorizontalAlignment="Left" Margin="44,14,0,0" VerticalAlignment="Top" Width="56"/>
-        <ComboBox x:Name="month_combo_box" HorizontalAlignment="Left" Margin="149,14,0,0" VerticalAlignment="Top" Width="101">
+        <ComboBox x:Name="year_combo_box" HorizontalAlignment="Left" Margin="44,14,0,0" VerticalAlignment="Top" Width="56" SelectionChanged="year_combo_box_SelectionChanged"/>
+        <ComboBox x:Name="month_combo_box" HorizontalAlignment="Left" Margin="149,14,0,0" VerticalAlignment="Top" Width="101" SelectionChanged="month_combo_box_SelectionChanged">
             <ComboBoxItem Content="[1] January"/>
             <ComboBoxItem Content="[2] February"/>
             <ComboBoxItem Content="[3] March"/>
@@ -22,6 +22,7 @@
         <Label Content="Year" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="39"/>
         <Label Content="Export E-Mail:" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Width="90"/>
         <Label x:Name="export_email_label" Content="&lt;email address&gt;" HorizontalAlignment="Left" Margin="105,54,0,0" VerticalAlignment="Top" Width="145" FontWeight="Bold"/>
+        <Button x:Name="test_button" Content="Test" HorizontalAlignment="Left" Margin="291,139,0,0" VerticalAlignment="Top" Width="54" Height="56" Click="test_button_Click"/>
 
     </Grid>
 </Window>

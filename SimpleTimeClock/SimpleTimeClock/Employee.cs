@@ -27,6 +27,7 @@ namespace SimpleTimeClock
         public int id
         {
             get { return _id; }
+            set { return; }     //Need a setter so the ID gets XML serialized
         }
 
         private string _fname;

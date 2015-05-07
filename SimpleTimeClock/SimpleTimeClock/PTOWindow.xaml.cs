@@ -75,15 +75,42 @@ namespace SimpleTimeClock
 
         }
 
-        private void UpdatePTOLabel()
+        private void UpdatePTOLabels()
         {
             if (current != null)
             if (selectedMonth != 0)
             if (selectedYear != 0)
             {
-
+                pto_month_label.Content = GetMonthPTO(selectedMonth, selectedYear, current) + " hrs";
+                pto_year_label.Content = GetYearPTO(selectedYear, current) + " hrs";
             }
         }
+
+        private float GetYearPTO(int year, Employee employee)
+        {
+            float amount = 0;
+
+            if (company.ptoLog.Count > 0)
+            {
+                amount = company.ptoLog.Where(pa => pa.employeeId == employee.id && pa.year == year).Sum(pa => pa.PTOAmount);
+            }
+
+            return amount;
+        }
+
+        private float GetMonthPTO(int month, int year, Employee employee)
+        {
+            float amount = 0; 
+
+            if (company.ptoLog.Count > 0)
+            {
+                amount = company.ptoLog.Where(pa => pa.employeeId == employee.id && pa.year == year && pa.month == month).Sum(pa => pa.PTOAmount);
+            }
+
+            return amount;
+        }
+
+
 
     //Interface methods
 
@@ -98,14 +125,18 @@ namespace SimpleTimeClock
         {
             if (current != null)
             {
-                PTOPromptWindow promptWindow = new PTOPromptWindow(true);
 
-                if (promptWindow.ShowDialog() == false)
+                if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword))
                 {
-                    if (promptWindow.canceled != true)
+                    PTOPromptWindow promptWindow = new PTOPromptWindow(true);
+
+                    if (promptWindow.ShowDialog() == false)
                     {
-                        company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount, current.fullname, selectedMonth, selectedYear, promptWindow.description));
-                        UpdatePTOLabel();
+                        if (promptWindow.canceled != true)
+                        {
+                            company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount, current.fullname, current.id, selectedMonth, selectedYear, promptWindow.description));
+                            UpdatePTOLabels();
+                        }
                     }
                 }
             }
@@ -115,14 +146,18 @@ namespace SimpleTimeClock
         {
             if (current != null)
             {
-                PTOPromptWindow promptWindow = new PTOPromptWindow(false);
-
-                if (promptWindow.ShowDialog() == false)
+                if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword))
                 {
-                    if (promptWindow.canceled != true)
+                    PTOPromptWindow promptWindow = new PTOPromptWindow(false);
+
+                    if (promptWindow.ShowDialog() == false)
                     {
-                        company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount, current.fullname, selectedMonth, selectedYear, promptWindow.description));
-                        UpdatePTOLabel();
+                        if (promptWindow.canceled != true)
+                        {
+                            //We get a positive value from input, and filp it to negative for the logs
+                            company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount * -1, current.fullname, current.id, selectedMonth, selectedYear, promptWindow.description));
+                            UpdatePTOLabels();
+                        }
                     }
                 }
             }
@@ -134,7 +169,7 @@ namespace SimpleTimeClock
             {
                 current = employee_listbox.SelectedItem as Employee;
 
-                UpdatePTOLabel();
+                UpdatePTOLabels();
             }
         }
 
@@ -146,13 +181,13 @@ namespace SimpleTimeClock
         private void month_combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedMonth = month_combobox.SelectedIndex + 1;
-            UpdatePTOLabel();
+            UpdatePTOLabels();
         }
 
         private void year_combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedYear = int.Parse((year_combobox.SelectedItem as ComboBoxItem).Content.ToString());
-            UpdatePTOLabel();
+            UpdatePTOLabels();
         }
     }
 }
