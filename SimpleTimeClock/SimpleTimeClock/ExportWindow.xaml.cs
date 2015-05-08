@@ -62,59 +62,10 @@ namespace SimpleTimeClock
 
         private void test_button_Click(object sender, RoutedEventArgs e)
         {
-            int daysInMonth = DateTime.DaysInMonth(selectedYear, selectedMonth);
+            Exporter exporter = new Exporter();
 
-            foreach (Employee employee in company.employees)
-            {
-
-                for (int day = 1; day <= daysInMonth; day++)
-                {
-                    float hoursWorked = 0;
-
-                    List<ClockAction> dayClockActions = company.clockLog.Where(ca => ca.employeeId == employee.id
-                                                                                && ca.time.Year == selectedYear
-                                                                                && ca.time.Month == selectedMonth
-                                                                                && ca.time.Day == day).OrderBy(ca => ca.time).ToList();
-
-                    if (dayClockActions != null && dayClockActions.Count > 0)
-                    {
-                        
-                        foreach (ClockAction clockAction in dayClockActions)
-                        {
-                            Console.WriteLine(clockAction.employeeId + " " + clockAction.employeeName + " " + clockAction.clockStatus + " " + clockAction.time);
-                        }
-
-                        if (dayClockActions.Count % 2 == 0)
-                        {
-                            //TODO
-                        }
-                        else
-                        {
-                            //uneven
-                        }
-                    }
-
-                    
-
-                        //print details each action
-
-                    //print summary
-                }
-
-                // print month summary
-
-                //foreach
-
-                    //print details of pto action
-
-                //get pto summary for this month and this year
-
-               
-
-            }
+            exporter.Export(company, selectedYear, selectedMonth);
         }
-
-    //Custom Methods
 
         private void InitializeYearComboBox()
         {

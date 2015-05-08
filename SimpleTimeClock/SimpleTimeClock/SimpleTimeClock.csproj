@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exporter.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="ClockAction.cs" />
     <Compile Include="Company.cs" />

@@ -36,5 +36,10 @@ public class PTOAction
         this.year = year;
         this.description = description;
     }
+
+    public string Print()
+    {
+        return "  " + employeeName + " [id: " + employeeId + "]   PTO Amount: " + PTOAmount + " Month/Year: " + month + "/" + year + " Description: " + description + Environment.NewLine;
+    }
 }
 

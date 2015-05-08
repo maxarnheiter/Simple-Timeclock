@@ -28,5 +28,10 @@ namespace SimpleTimeClock
             this.employeeId = employeeId;
         }
 
+        public string Print()
+        {
+            return "  " + employeeName + " [id: " + employeeId + "] clocked " + clockStatus + " at " + time + "." + Environment.NewLine;
+        }
+
     }
 }
