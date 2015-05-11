@@ -217,12 +217,18 @@ namespace SimpleTimeClock
 
         private void clock_in_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            current.ClockIn();
+            if (PasswordWindow.DoPasswordPrompt(current.fullname, current.password) == true)
+            {
+                current.ClockIn();
+            }
         }
 
         private void clock_out_image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            current.ClockOut();
+            if (PasswordWindow.DoPasswordPrompt(current.fullname, current.password) == true)
+            {
+                current.ClockOut();
+            }
         }
 
         private void open_menu_item_Click(object sender, RoutedEventArgs e)
