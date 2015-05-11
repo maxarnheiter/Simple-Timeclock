@@ -28,12 +28,14 @@ namespace SimpleTimeClock
         public ExportWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
 
         public ExportWindow(Company companyObj)
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             company = companyObj;
         }

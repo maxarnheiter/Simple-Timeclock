@@ -86,6 +86,8 @@ namespace SimpleTimeClock
                 output += Environment.NewLine;
 
                 Console.Write(output);
+
+                //Mailer mailer = new Mailer(output, company.exportEmail);
             }
         }
 

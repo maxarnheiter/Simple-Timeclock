@@ -96,6 +96,20 @@ namespace SimpleTimeClock
             }
         }
 
+        private string _senderEmail;
+        public string senderEmail
+        {
+            get { return _senderEmail; }
+            set
+            {
+                if (value != _senderEmail)
+                {
+                    _senderEmail = value;
+                    OnPropertyChanged("senderEmail");
+                }
+            }
+        }
+
         private ObservableCollection<Employee> _employees;
 
         public ObservableCollection<Employee> employees

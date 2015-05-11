@@ -28,6 +28,7 @@ namespace SimpleTimeClock
         public NewCompanyWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void create_button_Click(object sender, RoutedEventArgs e)

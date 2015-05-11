@@ -26,12 +26,14 @@ namespace SimpleTimeClock
         public PasswordWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             password_box.Focus();
         }
 
         public PasswordWindow(string userName)
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             user_name_label.Content = userName;
             password_box.Focus();
         }

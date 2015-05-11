@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/arrow_gray.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/clock_in_black.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/clock_in_gray.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/clock_out_black.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/clock_out_gray.png")]
 
 

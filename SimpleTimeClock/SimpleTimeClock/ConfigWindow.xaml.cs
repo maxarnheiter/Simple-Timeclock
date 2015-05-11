@@ -29,6 +29,8 @@ namespace SimpleTimeClock
         public ConfigWindow(Company company)
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             this.company = company;
 
             ListenToEvents();

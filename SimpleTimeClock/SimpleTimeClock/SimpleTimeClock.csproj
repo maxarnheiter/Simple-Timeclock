@@ -62,6 +62,7 @@
     <Compile Include="ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mailer.cs" />
     <Compile Include="NewCompanyWindow.xaml.cs">
       <DependentUpon>NewCompanyWindow.xaml</DependentUpon>
     </Compile>
@@ -160,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\arrow_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clock_in_black.png" />
+    <Resource Include="Images\clock_in_gray.png" />
+    <Resource Include="Images\clock_out_black.png" />
+    <Resource Include="Images\clock_out_gray.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

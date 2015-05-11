@@ -29,11 +29,13 @@ namespace SimpleTimeClock
         public PTOWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         public PTOWindow(Company company)
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             this.company = company;
         }
 

@@ -29,6 +29,7 @@ namespace SimpleTimeClock
         public PTOPromptWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         public PTOPromptWindow(bool isAdd)
@@ -36,6 +37,7 @@ namespace SimpleTimeClock
             this.isAdd = isAdd;
 
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
     //Custom Methods

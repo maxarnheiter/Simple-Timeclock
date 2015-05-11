@@ -65,6 +65,7 @@ namespace SimpleTimeClock
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             CompanyChanged += OnCompanyChanged;
             CurrentEmployeeChanged += OnCurrentEmployeeChanged;
