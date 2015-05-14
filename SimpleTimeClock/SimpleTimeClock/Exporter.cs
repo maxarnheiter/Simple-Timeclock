@@ -10,9 +10,26 @@ namespace SimpleTimeClock
     public class Exporter
     {
 
-        public void Export(Company company, int year, int month)
+        public void Export(Company company, DateTime start, DateTime end)
         {
-            int daysInMonth = DateTime.DaysInMonth(year, month);
+
+            //TODO redo all of this
+            
+        }
+
+        
+
+        
+
+    }
+}
+
+/*
+		public void Export(Company company, DateTime start, DateTime end)
+        {
+
+
+            int daysInPeriod = end.Subtract(start).Days;
 
             string output = "";
 
@@ -27,13 +44,13 @@ namespace SimpleTimeClock
 
                 output += "Printing records for " + employee.fullname + Environment.NewLine;
 
-                for (int day = 1; day <= daysInMonth; day++)
+                for (int day = 1; day <= daysInPeriod; day++)
                 {
 
                     List<ClockAction> dayClockActions = company.clockLog.Where(ca => ca.employeeId == employee.id
-                                                                                && ca.time.Year == year
-                                                                                && ca.time.Month == month
-                                                                                && ca.time.Day == day).OrderBy(ca => ca.time).ToList();
+                                                                                && ca.time >= start
+                                                                                && ca.time <= end).
+                                                                                OrderBy(ca => ca.time).ToList();
 
                     if (dayClockActions != null && dayClockActions.Count > 0)
                     {
@@ -90,8 +107,8 @@ namespace SimpleTimeClock
                 //Mailer mailer = new Mailer(output, company.exportEmail);
             }
         }
-
-        private string PrintHoursWorked(ClockAction[] dayClockActions, out bool hasError, out float totalHoursWorked)
+		
+		private string PrintHoursWorked(ClockAction[] dayClockActions, out bool hasError, out float totalHoursWorked)
         {
             totalHoursWorked = 0;
 
@@ -127,9 +144,4 @@ namespace SimpleTimeClock
         {
             return "   PTO total for this month: " + ptoActions.Sum(pa => pa.PTOAmount) + Environment.NewLine;
         }
-
-        
-
-    }
-}
-
+*/

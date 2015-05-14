@@ -21,10 +21,62 @@ namespace SimpleTimeClock
     {
         Company company;
 
-        Employee current;
+        Employee _currentEmployee;
+        Employee currentEmployee
+        {
+            get { return _currentEmployee; }
+            set
+            {
+                if (value != _currentEmployee)
+                {
+                    _currentEmployee = value;
+                    OnCurrentEmployeeChanged();
+                }
+            }
+        }
 
-        int selectedMonth;
-        int selectedYear;
+        PTOAction _currentPTOAction;
+        PTOAction currentPTOAction
+        {
+            get { return _currentPTOAction; }
+            set
+            {
+                if (value != _currentPTOAction)
+                {
+                    _currentPTOAction = value;
+                    OnCurrentPTOActionChanged();
+                }
+            }
+        }
+
+        int _selectedMonth;
+        int selectedMonth
+        {
+            get { return _selectedMonth; }
+            set
+            {
+                if (value != _selectedMonth)
+                {
+                    _selectedMonth = value;
+                    OnSelectedMonthChanged();
+                }
+            }
+        }
+
+
+        int _selectedYear;
+        int selectedYear
+        {
+            get { return _selectedYear; }
+            set
+            {
+                if (value != _selectedYear)
+                {
+                    _selectedYear = value;
+                    OnSelectedYearChanged();
+                }
+            }
+        }
 
         public PTOWindow()
         {
@@ -37,6 +89,8 @@ namespace SimpleTimeClock
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             this.company = company;
+
+            company.CompanyChanged += UpdatePTOListBox;
         }
 
     //Custom methods
@@ -77,18 +131,93 @@ namespace SimpleTimeClock
 
         }
 
-        private void UpdatePTOLabels()
+        private void InitializePTOListBox()
         {
-            if (current != null)
-            if (selectedMonth != 0)
-            if (selectedYear != 0)
+            pto_listbox.DisplayMemberPath = "formattedDate";
+        }
+
+        //Update Functions
+
+        private void UpdatePTOListBox()
+        {
+            if (currentEmployee != null)
             {
-                pto_month_label.Content = GetMonthPTO(selectedMonth, selectedYear, current) + " hrs";
-                pto_year_label.Content = GetYearPTO(selectedYear, current) + " hrs";
+                pto_listbox.Items.Clear();
+
+                List<PTOAction> ptoActions = GetEmployeePTOActions(currentEmployee);
+
+                if (ptoActions != null && ptoActions.Count > 0)
+                {
+                    foreach (PTOAction ptoAction in ptoActions)
+                        pto_listbox.Items.Add(ptoAction);
+                }
+            }
+            else
+            {
+                pto_listbox.Items.Clear();
             }
         }
 
-        private float GetYearPTO(int year, Employee employee)
+        private void UpdateAddButton()
+        {
+            if (currentEmployee != null)
+                add_button.IsEnabled = true;
+            else
+                add_button.IsEnabled = false;
+        }
+
+        private void UpdateRemoveButton()
+        {
+            if (currentPTOAction != null)
+                remove_button.IsEnabled = true;
+            else
+                remove_button.IsEnabled = false;
+        }
+
+        private void UpdateDescriptionTextBox()
+        {
+            if (currentPTOAction != null)
+                description_textbox.Text = currentPTOAction.description;
+            else
+                description_textbox.Clear();
+        }
+
+        private void UpdateMonthPTOLabel()
+        {
+            if (currentEmployee != null)
+            {
+                pto_month_label.Content = GetMonthPTO(currentEmployee, selectedYear, selectedMonth);
+            }
+        }
+
+        private void UpdateYearPTOLabel()
+        {
+            if (currentEmployee != null)
+            {
+                pto_year_label.Content = GetYearPTO(currentEmployee, selectedYear);
+            }
+        }
+
+        //Get Functions
+
+        private List<PTOAction> GetEmployeePTOActions(Employee employee)
+        {
+            return company.ptoLog.Where(pa => pa.employeeId == employee.id).OrderBy(pa => pa.formattedDate).ToList();
+        }
+
+        private float GetMonthPTO(Employee employee, int year, int month)
+        {
+            float amount = 0;
+
+            if (company.ptoLog.Count > 0)
+            {
+                amount = company.ptoLog.Where(pa => pa.employeeId == employee.id && pa.year == year && pa.month == month).Sum(pa => pa.PTOAmount);
+            }
+
+            return amount;
+        }
+
+        private float GetYearPTO(Employee employee, int year)
         {
             float amount = 0;
 
@@ -100,18 +229,56 @@ namespace SimpleTimeClock
             return amount;
         }
 
-        private float GetMonthPTO(int month, int year, Employee employee)
+    //Responsive Functions (On..)
+
+        private void OnCurrentEmployeeChanged()
         {
-            float amount = 0; 
-
-            if (company.ptoLog.Count > 0)
-            {
-                amount = company.ptoLog.Where(pa => pa.employeeId == employee.id && pa.year == year && pa.month == month).Sum(pa => pa.PTOAmount);
-            }
-
-            return amount;
+            UpdatePTOListBox();
+            UpdateAddButton();
+            UpdateRemoveButton();
+            UpdateMonthPTOLabel();
+            UpdateYearPTOLabel();
         }
 
+        private void OnCurrentPTOActionChanged()
+        {
+            UpdateDescriptionTextBox();
+            UpdateRemoveButton();
+        }
+
+        private void OnSelectedMonthChanged()
+        {
+            UpdateMonthPTOLabel();
+            UpdateYearPTOLabel();
+        }
+
+        private void OnSelectedYearChanged()
+        {
+            UpdateMonthPTOLabel();
+            UpdateYearPTOLabel();
+        }
+
+        private void OnAddButtonClicked()
+        {
+            if(currentEmployee != null)
+            if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword))
+            {
+                PTOPromptWindow promptWindow = new PTOPromptWindow();
+
+                if (promptWindow.ShowDialog() == false)
+                {
+                    if (promptWindow.canceled != true)
+                    {
+                        company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount, currentEmployee.fullname, currentEmployee.id, promptWindow.date.Day, promptWindow.date.Month, promptWindow.date.Year, promptWindow.description));
+                    }
+                }
+            }
+        }
+
+        private void OnRemoveButtonClicked()
+        {
+            //TODO
+        }
 
 
     //Interface methods
@@ -121,58 +288,24 @@ namespace SimpleTimeClock
             InitializeMonthComboBox();
             InitializeYearComboBox();
             InitializeEmployeeListbox();
+            InitializePTOListBox();
         }
 
         private void add_button_Click(object sender, RoutedEventArgs e)
         {
-            if (current != null)
-            {
-
-                if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword))
-                {
-                    PTOPromptWindow promptWindow = new PTOPromptWindow(true);
-
-                    if (promptWindow.ShowDialog() == false)
-                    {
-                        if (promptWindow.canceled != true)
-                        {
-                            company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount, current.fullname, current.id, selectedMonth, selectedYear, promptWindow.description));
-                            UpdatePTOLabels();
-                        }
-                    }
-                }
-            }
+            OnAddButtonClicked();
         }
 
         private void remove_button_Click(object sender, RoutedEventArgs e)
         {
-            if (current != null)
-            {
-                if (PasswordWindow.DoPasswordPrompt("Export User", company.exportPassword))
-                {
-                    PTOPromptWindow promptWindow = new PTOPromptWindow(false);
-
-                    if (promptWindow.ShowDialog() == false)
-                    {
-                        if (promptWindow.canceled != true)
-                        {
-                            //We get a positive value from input, and filp it to negative for the logs
-                            company.AddPTOAction(new PTOAction(DateTime.Now, promptWindow.amount * -1, current.fullname, current.id, selectedMonth, selectedYear, promptWindow.description));
-                            UpdatePTOLabels();
-                        }
-                    }
-                }
-            }
+            OnRemoveButtonClicked();
         }
 
         private void employee_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (employee_listbox.SelectedItem != null)
-            {
-                current = employee_listbox.SelectedItem as Employee;
-
-                UpdatePTOLabels();
-            }
+                currentEmployee = employee_listbox.SelectedItem as Employee;
+            
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)
@@ -183,13 +316,17 @@ namespace SimpleTimeClock
         private void month_combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedMonth = month_combobox.SelectedIndex + 1;
-            UpdatePTOLabels();
         }
 
         private void year_combobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedYear = int.Parse((year_combobox.SelectedItem as ComboBoxItem).Content.ToString());
-            UpdatePTOLabels();
+        }
+
+        private void pto_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (pto_listbox.SelectedItem != null)
+                currentPTOAction = pto_listbox.SelectedItem as PTOAction;
         }
     }
 }

@@ -16,22 +16,30 @@ public class PTOAction
 
     public int employeeId;
 
+    public int day;
+
     public int month;
 
     public int year;
 
     public string description;
 
+    public string formattedDate
+    {
+        get { return month + "/" + day + "/" + year; }
+    }
+
     public PTOAction()
     {
     }
 
-    public PTOAction(DateTime time, float PTOAmount, string employeeName, int employeeId, int month, int year, string description)
+    public PTOAction(DateTime time, float PTOAmount, string employeeName, int employeeId, int day, int month, int year, string description)
     {
         this.time = time;
         this.PTOAmount = PTOAmount;
         this.employeeName = employeeName;
         this.employeeId = employeeId;
+        this.day = day;
         this.month = month;
         this.year = year;
         this.description = description;
@@ -39,7 +47,7 @@ public class PTOAction
 
     public string Print()
     {
-        return "  " + employeeName + " [id: " + employeeId + "]   PTO Amount: " + PTOAmount + " Month/Year: " + month + "/" + year + " Description: " + description + Environment.NewLine;
+        return "  " + employeeName + " [id: " + employeeId + "]   PTO Amount: " + PTOAmount + " Date: " + month + "/" + day + "/" + year + " Description: " + description + Environment.NewLine;
     }
 }
 

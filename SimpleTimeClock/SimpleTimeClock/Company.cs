@@ -15,12 +15,11 @@ namespace SimpleTimeClock
     {
 
         //All events cascade up to this
-        public delegate void CompanyChangedEventHandler();
-        public event CompanyChangedEventHandler CompanyChanged;
+        public event Action CompanyChanged;
 
         protected void OnCompanyChanged(object source, EventArgs e)
         {
-            CompanyChangedEventHandler handler = CompanyChanged;
+            Action handler = CompanyChanged;
 
             if (handler != null)
                 handler();

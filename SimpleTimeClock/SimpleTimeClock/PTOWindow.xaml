@@ -1,33 +1,36 @@
 ﻿<Window x:Name="pto_window" x:Class="SimpleTimeClock.PTOWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PTOWindow" Height="324" Width="366" Loaded="pto_window_Loaded">
+        Title="PTOWindow" Height="472.15" Width="758" Loaded="pto_window_Loaded">
     <Grid Margin="0,2,0,-2">
-        <ListBox x:Name="employee_listbox" HorizontalAlignment="Left" Height="274" Margin="10,10,0,0" VerticalAlignment="Top" Width="157" SelectionChanged="employee_listbox_SelectionChanged"/>
-        <ComboBox x:Name="year_combobox" HorizontalAlignment="Left" Margin="224,45,0,0" VerticalAlignment="Top" Width="123" RenderTransformOrigin="0.575,-0.364" SelectionChanged="year_combobox_SelectionChanged"/>
-        <Label Content="Month" HorizontalAlignment="Left" Margin="172,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Year" HorizontalAlignment="Left" Margin="172,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="PTO (Month): " HorizontalAlignment="Left" Margin="172,83,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.486,-0.077" Width="92"/>
-        <Button x:Name="add_button" Content="Add" HorizontalAlignment="Left" Margin="177,159,0,0" VerticalAlignment="Top" Width="78" Click="add_button_Click"/>
-        <Button x:Name="remove_button" Content="Remove" HorizontalAlignment="Left" Margin="269,159,0,0" VerticalAlignment="Top" Width="78" Click="remove_button_Click"/>
-        <Button x:Name="close_button" Content="Close" HorizontalAlignment="Left" Margin="286,262,0,0" VerticalAlignment="Top" Width="62" Click="close_button_Click"/>
-        <ComboBox x:Name="month_combobox" HorizontalAlignment="Left" Margin="224,10,0,0" VerticalAlignment="Top" Width="123" SelectionChanged="month_combobox_SelectionChanged">
-            <ComboBoxItem Content="[1] January"/>
-            <ComboBoxItem Content="[2] February"/>
-            <ComboBoxItem Content="[3] March"/>
-            <ComboBoxItem Content="[4] April"/>
-            <ComboBoxItem Content="[5] May"/>
-            <ComboBoxItem Content="[6] June"/>
-            <ComboBoxItem Content="[7] July"/>
-            <ComboBoxItem Content="[8] August"/>
-            <ComboBoxItem Content="[9] September"/>
-            <ComboBoxItem Content="[10] October"/>
-            <ComboBoxItem Content="[11] November"/>
-            <ComboBoxItem Content="[12] December"/>
+        <ListBox x:Name="employee_listbox" HorizontalAlignment="Left" Height="398" Margin="10,34,0,0" VerticalAlignment="Top" Width="237" SelectionChanged="employee_listbox_SelectionChanged" FontSize="18"/>
+        <ComboBox x:Name="year_combobox" HorizontalAlignment="Left" Margin="260,394,0,0" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.575,-0.364" SelectionChanged="year_combobox_SelectionChanged" FontSize="18"/>
+        <Label Content="PTO:" HorizontalAlignment="Left" Margin="381,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.486,-0.077" Width="52" FontSize="18"/>
+        <Button x:Name="add_button" Content="Add" HorizontalAlignment="Left" Margin="260,282,0,0" VerticalAlignment="Top" Width="78" Click="add_button_Click" FontSize="18"/>
+        <Button x:Name="remove_button" Content="Remove" HorizontalAlignment="Left" Margin="426,282,0,0" VerticalAlignment="Top" Width="78" Click="remove_button_Click" FontSize="18"/>
+        <Button x:Name="close_button" Content="Close" HorizontalAlignment="Left" Margin="671,402,0,0" VerticalAlignment="Top" Width="67" Click="close_button_Click" FontSize="18" RenderTransformOrigin="0.493,0.533"/>
+        <ComboBox x:Name="month_combobox" HorizontalAlignment="Left" Margin="260,341,0,0" VerticalAlignment="Top" Width="116" SelectionChanged="month_combobox_SelectionChanged" FontSize="18">
+            <ComboBoxItem Content="1 January"/>
+            <ComboBoxItem Content="2 February"/>
+            <ComboBoxItem Content="3 March"/>
+            <ComboBoxItem Content="4 April"/>
+            <ComboBoxItem Content="5 May"/>
+            <ComboBoxItem Content="6 June"/>
+            <ComboBoxItem Content="7 July"/>
+            <ComboBoxItem Content="8 August"/>
+            <ComboBoxItem Content="9 September"/>
+            <ComboBoxItem Content="10 October"/>
+            <ComboBoxItem Content="11 November"/>
+            <ComboBoxItem Content="12 December"/>
         </ComboBox>
-        <Label x:Name="pto_month_label" Content="" HorizontalAlignment="Left" Margin="269,83,0,0" VerticalAlignment="Top" Width="78"/>
-        <Label Content="PTO (Year):" HorizontalAlignment="Left" Margin="172,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.486,-0.077" Width="92"/>
-        <Label x:Name="pto_year_label" Content="" HorizontalAlignment="Left" Margin="269,114,0,0" VerticalAlignment="Top" Width="78"/>
+        <Label x:Name="pto_month_label" Content="" HorizontalAlignment="Left" Margin="426,341,0,0" VerticalAlignment="Top" Width="78" FontSize="18"/>
+        <Label Content="PTO:" HorizontalAlignment="Left" Margin="380,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.486,-0.077" Width="49" FontSize="18"/>
+        <Label x:Name="pto_year_label" Content="" HorizontalAlignment="Left" Margin="426,394,0,0" VerticalAlignment="Top" Width="78" FontSize="18" RenderTransformOrigin="0.487,0.441"/>
+        <Label Content="Employees" HorizontalAlignment="Left" Margin="69,0,0,0" VerticalAlignment="Top" Width="105" FontSize="18"/>
+        <ListBox x:Name="pto_listbox" HorizontalAlignment="Left" Height="243" Margin="260,34,0,0" VerticalAlignment="Top" Width="244" SelectionChanged="pto_listbox_SelectionChanged" FontSize="18"/>
+        <Label Content="PTO Log" HorizontalAlignment="Left" Margin="328,0,0,0" VerticalAlignment="Top" Width="105" FontSize="18"/>
+        <TextBox x:Name="description_textbox" HorizontalAlignment="Left" Height="354" Margin="515,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223" FontSize="18" IsEnabled="False"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="565,0,0,0" VerticalAlignment="Top" Width="105" FontSize="18"/>
 
     </Grid>
 </Window>

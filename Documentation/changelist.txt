@@ -1,19 +1,30 @@
 1. go back and correct clock log manually
+
 2. date intervals for export periods (inclusive)
+
 3. employee change own password without admin prompt
+
 4. total workdays for pay period
+
 5. pto cancels out overtime
-6. overtime implementation
+
+6. overtime implementation (pto and ot are calculated per week, at a rate of over 40 hours for OT). 
+
 7. move summary data to the top of report
-8. scale up UI
-	a. MainWindow		[DONE]
-	b. ConfigWindow		[DONE]
-	c. ExportWindow		[DONE]
-	d. NewCompanyWindow	[DONE]
-	e. PasswordWindow
-	f. PTOPromptWindow
-	g. PTOWindow
-9. add sender address
+
+[DONE] 8. scale up UI
+	[DONE] a. MainWindow		
+	[DONE] b. ConfigWindow		
+	[DONE] c. ExportWindow		
+	[DONE] d. NewCompanyWindow	
+	[DONE] e. PasswordWindow	
+	[DONE] f. PTOPromptWindow	
+	[DONE] g. PTOWindow
+		
+9.  add sender address
+
 10. add mail functionality 
+
 11. gray out settings/export/pto buttons if no company loaded
+
 12. center all windows when they open

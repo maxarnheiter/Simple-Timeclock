@@ -20,10 +20,10 @@ namespace SimpleTimeClock
     public partial class PTOPromptWindow : Window
     {
 
+        public DateTime date;
         public int amount;
         public bool canceled;
         public string description;
-        bool isAdd;
 
 
         public PTOPromptWindow()
@@ -32,23 +32,40 @@ namespace SimpleTimeClock
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
-        public PTOPromptWindow(bool isAdd)
-        {
-            this.isAdd = isAdd;
-
-            InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-        }
-
     //Custom Methods
 
-        private bool CheckInput()
+        private bool CheckDate()
+        {
+            if (pto_datepicker.SelectedDate != null)
+            {
+                date = (DateTime)pto_datepicker.SelectedDate;
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Error: no selected date.");
+                return false;
+            }
+
+        }
+
+        private bool CheckAmount()
         {
             int testInt;
 
             if (int.TryParse(amount_textbox.Text, out testInt))
+            {
                 if (testInt > 0)
+                {
+                    amount = testInt;
                     return true;
+                }
+                else
+                {
+                    MessageBox.Show("Error: PTO Amount must be a non-negative number greater than zero.");
+                    return false;
+                }
+            }
 
             return false;
         }
@@ -63,14 +80,11 @@ namespace SimpleTimeClock
 
         private void submit_button_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckInput())
+            if (CheckAmount() && CheckDate())
             {
-                int.TryParse(amount_textbox.Text, out amount);
                 description = description_textbox.Text;
                 this.Close();
             }
-            else
-                MessageBox.Show("Invalid input. Must be non-negative number that is greater than zero.");
         }
 
        
